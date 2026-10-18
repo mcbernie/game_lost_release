@@ -1,0 +1,89 @@
+/* Download page "Lost": foggy, muted palette; light and dark via prefers-color-scheme.
+   Font: Cormorant Garamond (OFL), copied to fonts/ by release/pages.sh; serif fallback if absent. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("fonts/CormorantGaramond.ttf") format("truetype");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+:root {
+  --bg: #e9ece8;
+  --fg: #26302b;
+  --muted: #5b675f;
+  --card: #f6f7f4;
+  --line: #c4ccc5;
+  --accent: #4f7562;
+  --accent-fg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b221f;
+    --fg: #dfe5e0;
+    --muted: #9aa8a0;
+    --card: #242d29;
+    --line: #38443f;
+    --accent: #8db5a0;
+    --accent-fg: #14201b;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg), var(--card) 80%);
+  color: var(--fg);
+  font: 1.3rem/1.55 "Cormorant Garamond", Georgia, serif;
+  font-variant-numeric: lining-nums;
+}
+
+main { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
+
+h1 { font-size: 4rem; font-weight: 500; letter-spacing: .12em; margin: 0 0 .5rem; }
+h2 { font-size: 1.8rem; font-weight: 600; margin: 2.5rem 0 .75rem; }
+.lead { font-size: 1.5rem; color: var(--muted); margin: 0; }
+.meta { color: var(--muted); font-size: 1.1rem; }
+.notice { max-width: 46rem; margin: 1rem auto; padding: 0 1.25rem; }
+
+a { color: var(--accent); }
+code { font: .95em ui-monospace, Menlo, Consolas, monospace; background: var(--card); padding: .05em .35em; border-radius: 4px; }
+ol { padding-left: 1.4rem; }
+li { margin-bottom: .6rem; }
+
+.downloads { display: grid; gap: .9rem; }
+
+.download {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.5rem;
+  padding: 1rem 1.4rem;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  text-decoration: none;
+  font-weight: 600;
+}
+.download:focus-visible, .download:hover { outline: 3px solid var(--fg); outline-offset: 3px; }
+.download .name { font-size: 1.6rem; }
+.download .size { font-size: 1.1rem; opacity: .85; font-weight: 400; }
+
+.badge {
+  display: inline-block;
+  padding: 0 .6em;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: .95rem;
+}
+
+.error { padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+
+footer { margin-top: 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 1.05rem; }
+
+@media (max-width: 30rem) {
+  h1 { font-size: 3rem; }
+  .download { flex-direction: column; align-items: flex-start; gap: .2rem; }
+}

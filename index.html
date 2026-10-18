@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+  Download page for "Lost". Static, no build step. app.js reads the newest published release from
+  the GitHub API and fills #downloads. Font and its license are added to /fonts by release/pages.sh.
+-->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lost – Herunterladen</title>
+  <meta name="description" content="Lost – ein ruhiges, atmosphärisches 2D-Spiel. Download für Steam Deck, Windows und macOS.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%237f9c8c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Lost</h1>
+      <p class="lead">Ein Kind, allein in einem Wald, den die Welt vergessen hat. Kahle Bäume, Nebel, Stille – bis kleine Begegnungen ihn Schritt für Schritt wecken.</p>
+    </header>
+
+    <section aria-labelledby="dl-title">
+      <h2 id="dl-title">Herunterladen</h2>
+      <p id="release-info" class="meta" aria-live="polite">Lade die neueste Version …</p>
+      <div id="downloads" class="downloads"></div>
+      <p id="release-links" class="meta" hidden></p>
+    </section>
+
+    <section aria-labelledby="deck-title">
+      <h2 id="deck-title">Auf dem Steam Deck installieren</h2>
+      <ol>
+        <li>In den <strong>Desktop-Modus</strong> wechseln (Steam-Taste → <em>Ein/Aus</em> → <em>Zum Desktop wechseln</em>).</li>
+        <li>Das Paket für das Steam Deck oben herunterladen und im Dateimanager (Dolphin) per Rechtsklick → <em>Entpacken</em> in einen Ordner wie <code>/home/deck/Games</code> entpacken.</li>
+        <li>Steam öffnen → <em>Spiele</em> → <em>Ein Nicht-Steam-Spiel zu meiner Bibliothek hinzufügen …</em> → <em>Durchsuchen …</em> → Dateityp <em>Alle Dateien</em> → <code>lost.sh</code> im entpackten Ordner wählen.</li>
+        <li>Zurück in den <strong>Spielmodus</strong>: <em>Lost</em> steht in der Bibliothek unter <em>Nicht-Steam</em>. Gesteuert wird mit dem Gamepad.</li>
+      </ol>
+      <p class="meta">Ruckelt es? In den Startoptionen des Spiels <code>LW_QUALITY=medium %command%</code> (oder <code>low</code>) eintragen.</p>
+    </section>
+
+    <section aria-labelledby="pc-title">
+      <h2 id="pc-title">Windows und macOS</h2>
+      <p><strong>Windows:</strong> ZIP entpacken, <code>lost.exe</code> starten. Meldet SmartScreen „Der Computer wurde durch Windows geschützt“: <em>Weitere Informationen</em> → <em>Trotzdem ausführen</em>.</p>
+      <p><strong>macOS:</strong> ZIP öffnen, <code>Lost.app</code> in den Ordner <em>Programme</em> ziehen. Beim ersten Start <em>Systemeinstellungen</em> → <em>Datenschutz &amp; Sicherheit</em> → bei „Lost“ <em>Dennoch öffnen</em>.</p>
+    </section>
+
+    <footer>
+      <p>Mehr zum Spiel, Steuerung und Fehlerbehebung: <a href="https://github.com/mcbernie/game_lost_release#readme">Projektseite</a>.
+      Schrift: Cormorant Garamond, <a href="fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+    </footer>
+  </main>
+  <noscript><p class="notice">Ohne JavaScript zeigt diese Seite keine Downloads an. Alle Versionen: <a href="https://github.com/mcbernie/game_lost_release/releases">GitHub-Releases</a>.</p></noscript>
+  <script src="app.js"></script>
+</body>
+</html>
