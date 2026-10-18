@@ -26,8 +26,19 @@
       <p id="release-links" class="meta" hidden></p>
     </section>
 
+    <section aria-labelledby="quick-title">
+      <h2 id="quick-title">Schnell installieren / aktualisieren (Steam Deck, Linux)</h2>
+      <p>Im Desktop-Modus ein Terminal (Konsole) öffnen und diese Zeile einfügen:</p>
+      <div class="cmd">
+        <code id="quick-cmd">curl -fsSL https://mcbernie.github.io/game_lost_release/install.sh | sh</code>
+        <button type="button" id="quick-copy" class="copy">Kopieren</button>
+      </div>
+      <p>Das Skript holt die neueste Version (Testversionen eingeschlossen), prüft die Prüfsumme und installiert nach <code>~/Games/Lost</code> – bei jedem Aufruf an derselben Stelle, sodass der Steam-Eintrag gültig bleibt. Die vorherige Version bleibt als <code>~/Games/Lost.previous</code> erhalten. Nur Releases ohne Testversionen: <code>… | sh -s -- --stable</code>. Weitere Optionen: <code>--dir</code>, <code>--version</code>, <code>--force</code>, <code>--help</code>.</p>
+      <p>Danach liegt <code>update.sh</code> im Spielordner; ein Doppelklick im Dateimanager aktualisiert das Spiel erneut, und <code>lost.sh --install-desktop</code> legt zusätzlich den Menüeintrag <em>Lost aktualisieren</em> an. <a href="install.sh">Skript ansehen</a></p>
+    </section>
+
     <section aria-labelledby="deck-title">
-      <h2 id="deck-title">Auf dem Steam Deck installieren</h2>
+      <h2 id="deck-title">Auf dem Steam Deck von Hand installieren</h2>
       <ol>
         <li>In den <strong>Desktop-Modus</strong> wechseln (Steam-Taste → <em>Ein/Aus</em> → <em>Zum Desktop wechseln</em>).</li>
         <li>Das Paket für das Steam Deck oben herunterladen und im Dateimanager (Dolphin) per Rechtsklick → <em>Entpacken</em> in einen Ordner wie <code>/home/deck/Games</code> entpacken.</li>

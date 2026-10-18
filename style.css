@@ -71,6 +71,26 @@ li { margin-bottom: .6rem; }
 .download .name { font-size: 1.6rem; }
 .download .size { font-size: 1.1rem; opacity: .85; font-weight: 400; }
 
+.cmd {
+  display: flex;
+  align-items: stretch;
+  gap: .6rem;
+  margin: .8rem 0 1.2rem;
+}
+.cmd code { flex: 1; padding: .8rem 1rem; border-radius: 10px; word-break: break-all; font-size: 1rem; }
+.copy {
+  min-width: 7rem;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.copy:focus-visible, .copy:hover { outline: 3px solid var(--fg); outline-offset: 3px; }
+
 .badge {
   display: inline-block;
   padding: 0 .6em;

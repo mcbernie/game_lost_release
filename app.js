@@ -112,5 +112,28 @@
       });
   }
 
+  /** Wires the copy button of the one-line install command. */
+  function setupCopy() {
+    var button = document.getElementById("quick-copy");
+    var cmd = document.getElementById("quick-cmd");
+    if (!button || !cmd) return;
+    button.addEventListener("click", function () {
+      var done = function () {
+        button.textContent = "Kopiert";
+        setTimeout(function () { button.textContent = "Kopieren"; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cmd.textContent).then(done, function () {});
+      } else {
+        var range = document.createRange();
+        range.selectNodeContents(cmd);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    });
+  }
+
+  setupCopy();
   load();
 })();
