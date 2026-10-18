@@ -90,6 +90,9 @@ li { margin-bottom: .6rem; }
   cursor: pointer;
 }
 .copy:focus-visible, .copy:hover { outline: 3px solid var(--fg); outline-offset: 3px; }
+.cmd { flex-wrap: wrap; }
+.copy-status { flex-basis: 100%; font-size: .95rem; }
+.copy-status:empty { display: none; }
 
 .badge {
   display: inline-block;

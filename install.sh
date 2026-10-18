@@ -2,18 +2,8 @@
 # LOST_INSTALLER -- installs or updates "Lost" (Steam Deck / Linux x86_64) to the newest release.
 #
 #   curl -fsSL https://mcbernie.github.io/game_lost_release/install.sh | sh
-#   curl -fsSL https://mcbernie.github.io/game_lost_release/install.sh | sh -s -- --stable
 #
-# Options (also shown by --help):
-#   --dir <path>       install folder (default ~/Games/Lost); always the same place, so a
-#                      Steam shortcut to <dir>/lost.sh stays valid
-#   --version <tag>    install exactly this release (e.g. v0.2.0) instead of the newest
-#   --stable           ignore pre-releases (test versions)
-#   --force            reinstall even if the version is already installed
-#   --desktop          also create the menu entry "Lost aktualisieren"
-#   --install-desktop  only create that menu entry and exit
-#   --pause            wait for Enter at the end (used by the menu entry / Steam)
-#   --help             show this text
+# Options: see usage() (--help). The folder is always the same (default ~/Games/Lost).
 #
 # Needs only: sh, curl, tar, grep, sed, awk, sort and sha256sum (or shasum). No sudo, no jq.
 # Writes only to <dir>, <dir>.new (staging), <dir>.previous (backup of the last version), a
@@ -31,15 +21,8 @@ platform="linux-x86_64-steamdeck"
 # Rewritten with a fixed folder in the copy that is installed as <dir>/update.sh.
 default_dir="$HOME/Games/Lost"
 
-want_version=""
-stable=0
-force=0
-desktop=0
-desktop_only=0
-pause=0
-tmp=""
-staging=""
-dir=""
+want_version="" tmp="" staging="" dir=""
+stable=0 force=0 desktop=0 desktop_only=0 pause=0
 
 # Prints the option help.
 usage() {
@@ -54,6 +37,11 @@ Usage: install.sh [options]
   --pause            wait for Enter at the end
   --help             show this text
 HELP
+}
+
+# True if folder $1 looks like a Lost installation (has VERSION or lost.sh).
+is_lost_dir() {
+    [ -f "$1/VERSION" ] || [ -f "$1/lost.sh" ]
 }
 
 # Prints an error and exits.
@@ -223,6 +211,9 @@ resolve_tag() {
         echo "Looking for the newest version ..."
         fetch "$api" "$tmp/releases.json"
         tag=$(newest_tag < "$tmp/releases.json")
+        if [ -z "$tag" ] && [ "$stable" = 1 ] && [ -n "$(stable=0; newest_tag < "$tmp/releases.json")" ]; then
+            die "no stable release yet (only test versions exist); run again without --stable"
+        fi
         [ -n "$tag" ] || die "no published release found"
     fi
     case "$tag" in *[!A-Za-z0-9._+-]*) die "invalid version tag: $tag" ;; esac
@@ -278,8 +269,12 @@ main() {
     if [ "$(uname -s)" = Linux ] && [ "$(uname -m)" != x86_64 ]; then
         die "only 64-bit x86 Linux (Steam Deck) is supported"
     fi
-    if [ -e "$dir" ] && [ ! -f "$dir/VERSION" ] && [ ! -f "$dir/lost.sh" ]; then
+    if [ -e "$dir" ] && ! is_lost_dir "$dir"; then
         die "'$dir' exists but does not look like a Lost installation; choose another --dir"
+    fi
+    # A leftover staging folder of an interrupted run is replaced; anything else is not ours.
+    if [ -e "$dir.new" ] && ! is_lost_dir "$dir.new"; then
+        die "'$dir.new' exists and is not a Lost staging folder; remove or rename it, then run again"
     fi
     tmp=$(mktemp -d)
     resolve_tag

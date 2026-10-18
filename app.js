@@ -112,24 +112,42 @@
       });
   }
 
-  /** Wires the copy button of the one-line install command. */
+  /** Copies `node`'s text via a temporary selection (`execCommand`); true on success. */
+  function copyBySelection(node) {
+    var range = document.createRange();
+    range.selectNodeContents(node);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    try {
+      return document.execCommand("copy");
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /** Wires the copy button of the one-line install command and shows the result. */
   function setupCopy() {
     var button = document.getElementById("quick-copy");
     var cmd = document.getElementById("quick-cmd");
+    var status = document.getElementById("quick-status");
     if (!button || !cmd) return;
+    var report = function (ok) {
+      button.textContent = ok ? "Kopiert" : "Kopieren";
+      if (status) status.textContent = ok ? "Kopiert" : "Bitte von Hand kopieren";
+      setTimeout(function () {
+        button.textContent = "Kopieren";
+        if (status) status.textContent = "";
+      }, 3000);
+    };
     button.addEventListener("click", function () {
-      var done = function () {
-        button.textContent = "Kopiert";
-        setTimeout(function () { button.textContent = "Kopieren"; }, 2000);
-      };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(cmd.textContent).then(done, function () {});
+        navigator.clipboard.writeText(cmd.textContent).then(
+          function () { report(true); },
+          function () { report(copyBySelection(cmd)); }
+        );
       } else {
-        var range = document.createRange();
-        range.selectNodeContents(cmd);
-        var selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
+        report(copyBySelection(cmd));
       }
     });
   }

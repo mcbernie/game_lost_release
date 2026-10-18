@@ -16,7 +16,7 @@
   <main>
     <header>
       <h1>Lost</h1>
-      <p class="lead">Ein Kind, allein in einem Wald, den die Welt vergessen hat. Kahle Bäume, Nebel, Stille – bis kleine Begegnungen ihn Schritt für Schritt wecken.</p>
+      <p class="lead">Ein Kind, allein in einem Wald, den die Welt vergessen hat. Kahle Bäume, Nebel, Stille – bis kleine Begegnungen den Wald Schritt für Schritt wecken.</p>
     </header>
 
     <section aria-labelledby="dl-title">
@@ -32,9 +32,10 @@
       <div class="cmd">
         <code id="quick-cmd">curl -fsSL https://mcbernie.github.io/game_lost_release/install.sh | sh</code>
         <button type="button" id="quick-copy" class="copy">Kopieren</button>
+        <span id="quick-status" class="copy-status" role="status" aria-live="polite"></span>
       </div>
       <p>Das Skript holt die neueste Version (Testversionen eingeschlossen), prüft die Prüfsumme und installiert nach <code>~/Games/Lost</code> – bei jedem Aufruf an derselben Stelle, sodass der Steam-Eintrag gültig bleibt. Die vorherige Version bleibt als <code>~/Games/Lost.previous</code> erhalten. Nur Releases ohne Testversionen: <code>… | sh -s -- --stable</code>. Weitere Optionen: <code>--dir</code>, <code>--version</code>, <code>--force</code>, <code>--help</code>.</p>
-      <p>Danach liegt <code>update.sh</code> im Spielordner; ein Doppelklick im Dateimanager aktualisiert das Spiel erneut, und <code>lost.sh --install-desktop</code> legt zusätzlich den Menüeintrag <em>Lost aktualisieren</em> an. <a href="install.sh">Skript ansehen</a></p>
+      <p>Danach liegt <code>update.sh</code> im Spielordner; ein Doppelklick im Dateimanager aktualisiert das Spiel erneut, und <code>lost.sh --install-desktop</code> legt zusätzlich den Menüeintrag <em>Lost aktualisieren</em> an. <a href="https://github.com/mcbernie/game_lost_release/blob/gh-pages/install.sh">Skript ansehen</a></p>
     </section>
 
     <section aria-labelledby="deck-title">
